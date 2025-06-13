@@ -34,7 +34,7 @@ header {
 }
 
 header h1 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #222;
 }
@@ -50,14 +50,14 @@ form#debtForm input[type="text"],
 form#debtForm input[type="number"],
 form#debtForm input[type="file"] {
   padding: 10px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   border: 1px solid #ccc;
   border-radius: 6px;
   width: 100%;
 }
 
 form#debtForm button[type="submit"] {
-  background-color: #0d6efd; /* azul */
+  background-color: #0d6efd;
   color: white;
   font-weight: 600;
   padding: 10px;
@@ -65,6 +65,7 @@ form#debtForm button[type="submit"] {
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  font-size: 0.9rem;
 }
 
 form#debtForm button[type="submit"]:hover {
@@ -74,7 +75,7 @@ form#debtForm button[type="submit"]:hover {
 #debtList {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 14px;
   max-height: 60vh;
   overflow-y: auto;
   padding-right: 5px;
@@ -84,18 +85,18 @@ form#debtForm button[type="submit"]:hover {
 .debt {
   display: flex;
   align-items: flex-start;
-  gap: 15px;
+  gap: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 12px 15px;
+  padding: 10px 12px;
   background: #fff;
   box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
 }
 
 .debt img {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
   object-fit: cover;
   flex-shrink: 0;
 }
@@ -105,23 +106,23 @@ form#debtForm button[type="submit"]:hover {
 }
 
 .debt-info strong {
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   display: block;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   color: #333;
 }
 
 .debt-info ul {
   list-style: none;
-  font-size: 0.9rem;
-  max-height: 120px;
+  font-size: 0.7rem;
+  max-height: 100px;
   overflow-y: auto;
-  margin-bottom: 6px;
-  padding-left: 12px;
+  margin-bottom: 4px;
+  padding-left: 10px;
 }
 
 .debt-info ul li {
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   cursor: pointer;
   user-select: none;
   display: flex;
@@ -136,19 +137,19 @@ form#debtForm button[type="submit"]:hover {
 
 .debt-info ul li .remove-history {
   color: #d9534f;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   cursor: pointer;
-  padding-left: 8px;
+  padding-left: 6px;
   user-select: none;
 }
 
 .debt-info p {
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   color: #555;
 }
 
 .debt button {
-  background-color: #dc3545; /* rojo */
+  background-color: #dc3545;
   border: none;
   color: white;
   padding: 6px 12px;
@@ -166,7 +167,7 @@ form#debtForm button[type="submit"]:hover {
 /* Scroll personalizado */
 #debtList::-webkit-scrollbar,
 .debt-info ul::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 #debtList::-webkit-scrollbar-thumb,
@@ -182,15 +183,15 @@ form#debtForm button[type="submit"]:hover {
   }
 
   header h1 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .debt img {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
   }
 
   form#debtForm button[type="submit"] {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 }
