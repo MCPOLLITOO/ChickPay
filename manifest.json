@@ -3,8 +3,8 @@
   "short_name": "chickpay",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#4caf50",
+  "background_color": "#121212",
+  "theme_color": "#121212",
   "orientation": "portrait",
   "icons": [
     {
