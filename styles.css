@@ -1,238 +1,333 @@
-/* ========== VARIABLES ========== */
-:root {
-  --primary: #0d6efd;
-  --primary-hover: #084cd3;
-  --danger: #dc3545;
-  --danger-hover: #b02a37;
-  --text-main: #f8f9fa;
-  --text-soft: #ced4da;
-  --background: #000000;
-  --card-bg: #121212;
-  --border: #2c2c2c;
-  --white: #ffffff;
-}
-
-/* ========== RESET ========== */
+/* Reset básico */
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #eee;
 }
 
-/* ========== BODY ========== */
+/* Fondo y contenedor */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: var(--background);
-  color: var(--text-main);
-  line-height: 1.4;
+  background-color: #121212;
   min-height: 100vh;
+  padding: 20px 10px;
   display: flex;
   justify-content: center;
-  padding: 15px;
 }
 
-/* ========== CONTAINER ========== */
 .container {
-  background: var(--card-bg);
   max-width: 480px;
   width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
+  background: #1e1e1e;
+  border-radius: 14px;
+  padding: 20px 25px;
+  box-shadow: 0 0 15px #0d6efd88;
 }
 
-/* ========== HEADER ========== */
+/* Header */
 header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 header h1 {
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: var(--white);
+  font-weight: 900;
+  font-size: 2rem;
+  color: #0d6efd;
+  letter-spacing: 1.5px;
 }
 
-/* ========== FORMULARIO ========== */
-form#debtForm {
+/* Form */
+form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 30px;
 }
 
-form#debtForm input[type="text"],
-form#debtForm input[type="number"],
-form#debtForm input[type="file"] {
-  padding: 10px;
-  font-size: 0.9rem;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  width: 100%;
-  background-color: #1c1c1c;
-  color: var(--text-main);
-}
-
-form#debtForm input:focus {
-  outline: 2px solid var(--primary);
-  outline-offset: 2px;
-}
-
-form#debtForm button[type="submit"] {
-  background-color: var(--primary);
-  color: white;
-  font-weight: 600;
-  padding: 10px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-}
-
-form#debtForm button[type="submit"]:hover {
-  background-color: var(--primary-hover);
-}
-
-form#debtForm button[type="submit"]:focus {
-  outline: 2px solid white;
-  outline-offset: 2px;
-}
-
-/* ========== LISTA DE DEUDAS ========== */
-#debtList {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  max-height: 60vh;
-  overflow-y: auto;
-  padding-right: 5px;
-}
-
-/* ========== ITEM DEUDA ========== */
-.debt {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  border: 1px solid var(--border);
+input[type="text"],
+input[type="number"] {
+  padding: 12px 14px;
   border-radius: 8px;
-  padding: 10px 12px;
-  background: #1a1a1a;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s ease-in-out;
-}
-
-.debt img {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.debt-info {
-  flex: 1;
-}
-
-.debt-info strong {
-  font-size: 0.9rem;
-  display: block;
-  margin-bottom: 4px;
-  color: var(--white);
-}
-
-.debt-info ul {
-  list-style: none;
-  font-size: 0.7rem;
-  max-height: 100px;
-  overflow-y: auto;
-  margin-bottom: 4px;
-  padding-left: 10px;
-  color: var(--text-soft);
-}
-
-.debt-info ul li {
-  margin-bottom: 3px;
-  cursor: pointer;
-  user-select: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.debt-info ul li:hover {
-  background-color: #2a2a2a;
-  border-radius: 4px;
-}
-
-.debt-info ul li .remove-history {
-  color: var(--danger);
-  font-size: 0.7rem;
-  cursor: pointer;
-  padding-left: 6px;
-  user-select: none;
-}
-
-.debt-info p {
-  font-size: 0.7rem;
-  color: var(--text-soft);
-}
-
-.debt button {
-  background-color: var(--danger);
   border: none;
+  background-color: #2a2a2a;
+  color: #eee;
+  font-size: 1rem;
+  transition: background-color 0.25s ease;
+}
+
+input[type="text"]::placeholder,
+input[type="number"]::placeholder {
+  color: #777;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  outline: none;
+  background-color: #393939;
+}
+
+/* Botón principal */
+button[type="submit"] {
+  padding: 12px 0;
+  background-color: #0d6efd;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.15rem;
   color: white;
-  padding: 6px 12px;
-  border-radius: 6px;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgb(13 110 253 / 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #084cd3;
+  box-shadow: 0 6px 15px rgb(13 110 253 / 0.7);
+}
+
+/* Inputs file ocultos */
+input[type="file"] {
+  display: none;
+}
+
+/* Labels para input file */
+.file-input-label {
+  display: inline-block;
+  padding: 10px 18px;
+  background-color: #0d6efd;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 4px 12px rgb(13 110 253 / 0.5);
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  text-align: center;
+  max-width: fit-content;
+  margin-bottom: 8px;
+}
+
+.file-input-label:hover {
+  background-color: #084cd3;
+  box-shadow: 0 6px 15px rgb(13 110 253 / 0.7);
+}
+
+/* Mostrar nombre archivo */
+.file-name-display {
+  margin-left: 10px;
+  color: #bbb;
   font-size: 0.9rem;
-  align-self: start;
+  font-style: italic;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  vertical-align: middle;
+}
+
+/* Backup buttons container */
+.backup-buttons {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.backup-buttons button {
+  flex: 1;
+  min-width: 130px;
+  padding: 12px 14px;
+  background-color: #0d6efd;
+  color: white;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 12px rgb(13 110 253 / 0.5);
+  font-size: 1rem;
+}
+
+.backup-buttons button:hover {
+  background-color: #084cd3;
+  box-shadow: 0 6px 15px rgb(13 110 253 / 0.7);
+}
+
+/* Lista de deudas */
+#debtList {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+/* Scrollbar minimalista y moderna para webkit */
+#debtList::-webkit-scrollbar {
+  width: 7px;
+}
+
+#debtList::-webkit-scrollbar-track {
+  background: #1e1e1e;
+  border-radius: 10px;
+}
+
+#debtList::-webkit-scrollbar-thumb {
+  background-color: #0d6efdcc;
+  border-radius: 10px;
+  border: 2px solid #1e1e1e;
+}
+
+/* Firefox scrollbar */
+#debtList {
+  scrollbar-width: thin;
+  scrollbar-color: #0d6efdcc #1e1e1e;
+}
+
+/* Cada deuda */
+.debt {
+  background-color: #2a2a2a;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 18px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  box-shadow: 0 0 12px #0d6efd44;
   transition: background-color 0.3s ease;
 }
 
-.debt button:hover {
-  background-color: var(--danger-hover);
+.debt:hover {
+  background-color: #393939;
 }
 
-.debt button:focus {
-  outline: 2px solid white;
-  outline-offset: 2px;
+/* Imagen deuda */
+.debt img {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px #0d6efdaa;
 }
 
-/* ========== SCROLL PERSONALIZADO ========== */
-#debtList::-webkit-scrollbar,
+/* Info deuda */
+.debt-info {
+  flex: 1;
+  color: #eee;
+  font-size: 1rem;
+}
+
+/* Historial */
+.debt-info ul {
+  margin: 10px 0;
+  padding-left: 18px;
+  list-style: none;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+/* Historial scrollbar igual */
 .debt-info ul::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 
-#debtList::-webkit-scrollbar-thumb,
+.debt-info ul::-webkit-scrollbar-track {
+  background: #2a2a2a;
+  border-radius: 10px;
+}
+
 .debt-info ul::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
+  background-color: #0d6efdcc;
+  border-radius: 10px;
+  border: 1.5px solid #2a2a2a;
 }
 
-/* ========== RESPONSIVE ========== */
-@media (max-width: 480px) {
-  .container {
-    padding: 15px;
-  }
+.debt-info ul {
+  scrollbar-width: thin;
+  scrollbar-color: #0d6efdcc #2a2a2a;
+}
 
-  header h1 {
-    font-size: 1.4rem;
-  }
+/* Estado pago/no pago */
+.debt-info li {
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  cursor: default;
+  color: #ccc;
+}
 
+.debt-info li span {
+  cursor: pointer;
+  flex-grow: 1;
+}
+
+.debt-info li span:hover {
+  color: #0d6efd;
+  text-decoration: underline;
+}
+
+/* Botón eliminar en historial */
+.debt-info li button {
+  background: none;
+  border: none;
+  color: #ff5c5c;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 0 6px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.debt-info li button:hover {
+  background-color: #ff5c5c22;
+}
+
+/* Próximo pago */
+.debt-info p {
+  font-size: 0.9rem;
+  color: #999;
+  margin-top: 6px;
+}
+
+/* Botón eliminar deuda principal */
+.debt > button {
+  background-color: transparent;
+  border: none;
+  color: #ff5c5c;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 4px 10px;
+  align-self: flex-start;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  user-select: none;
+}
+
+.debt > button:hover {
+  background-color: #ff5c5c22;
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+  .debt {
+    flex-direction: column;
+    align-items: center;
+  }
   .debt img {
-    width: 45px;
-    height: 45px;
+    margin-bottom: 8px;
   }
-
-  form#debtForm button[type="submit"] {
-    font-size: 0.85rem;
+  .debt > button {
+    align-self: center;
   }
-
-  .debt-info ul {
-    max-height: 80px;
+  .backup-buttons {
+    flex-direction: column;
   }
 }
