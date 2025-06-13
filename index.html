@@ -3,21 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Organizador de pagos</title>
+  <title>POLLITOO 🐣</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div class="container">
     <header>
       <h1>Organizador de pagos</h1>
+       <h1>POLLITOO 🐣</h1>
     </header>
 
     <form id="debtForm">
       <input type="text" id="debtName" placeholder="Nombre de la deuda" required />
-      <input type="number" id="debtDay" placeholder="Día de pago (1-31)" min="1" max="31" required />
+      <input type="number" id="debtDay" placeholder="Día de pago" min="1" max="31" required />
+
+      <label for="debtImage" class="file-input-label">Foto</label>
       <input type="file" id="debtImage" accept="image/*" />
+      <span id="photoName" class="file-name-display"></span>
+
       <button type="submit">Agregar Deuda</button>
     </form>
+
+    <div class="backup-buttons">
+      <label for="backupInput" class="file-input-label">Subir backup</label>
+      <input type="file" id="backupInput" accept="application/json" />
+      <button id="downloadBackupBtn">Descargar backup</button>
+    </div>
 
     <div id="debtList"></div>
   </div>
