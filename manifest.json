@@ -1,6 +1,6 @@
 {
   "name": "Organizador de Pagos",
-  "short_name": "Pagos",
+  "short_name": "chickpay",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#ffffff",
