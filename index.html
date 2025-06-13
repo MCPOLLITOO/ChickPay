@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Organizador de Pagos</title>
+
+  <!-- Manifest PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#4caf50" />
+
+  <!-- Íconos para la app -->
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Organizador de Pagos</h1>
+
+    <form id="debtForm">
+      <input type="text" id="debtName" placeholder="Nombre de la deuda" required />
+      <input type="number" id="debtDay" placeholder="Día de pago (ej: 21)" min="1" max="31" required />
+      <input type="file" id="debtImage" accept="image/*" />
+      <button type="submit">Agregar deuda</button>
+    </form>
+
+    <div id="debtList"></div>
+  </div>
+
+  <script src="app.js"></script>
+
+  <!-- Registro del service worker para PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+        .then(reg => console.log('✅ Service Worker registrado', reg))
+        .catch(err => console.error('❌ Error al registrar el SW:', err));
+    }
+  </script>
+</body>
+</html>
