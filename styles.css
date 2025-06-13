@@ -1,110 +1,196 @@
+/* Reset básico */
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f5f7fa;
-  margin: 0;
-  padding: 20px;
-  color: #222;
+  background: #f8f9fa;
+  color: #212529;
+  line-height: 1.4;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
 }
 
 .container {
-  max-width: 600px;
-  margin: auto;
   background: white;
-  padding: 25px;
+  max-width: 480px;
+  width: 100%;
   border-radius: 10px;
-  box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-h1 {
+/* Header centrado */
+header {
   text-align: center;
   margin-bottom: 20px;
 }
 
-form {
+header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #222;
+}
+
+form#debtForm {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
-form input[type="text"],
-form input[type="number"],
-form input[type="file"] {
-  flex: 1 1 150px;
+form#debtForm input[type="text"],
+form#debtForm input[type="number"],
+form#debtForm input[type="file"] {
   padding: 10px;
-  border: 1.5px solid #ccc;
+  font-size: 1rem;
+  border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 16px;
+  width: 100%;
 }
 
-form button {
-  background-color: #4caf50;
-  border: none;
-  padding: 10px 25px;
+form#debtForm button[type="submit"] {
+  background-color: #0d6efd; /* azul */
   color: white;
-  font-size: 16px;
+  font-weight: 600;
+  padding: 10px;
+  border: none;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  flex: 1 1 100%;
 }
 
-form button:hover {
-  background-color: #45a049;
+form#debtForm button[type="submit"]:hover {
+  background-color: #084cd3;
 }
 
-#debtList .debt {
+#debtList {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-height: 60vh;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+/* Cada deuda */
+.debt {
   display: flex;
   align-items: flex-start;
   gap: 15px;
-  padding: 12px 10px;
-  border-bottom: 1px solid #ddd;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px 15px;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
 }
 
-#debtList .debt img {
+.debt img {
   width: 60px;
   height: 60px;
+  border-radius: 12px;
   object-fit: cover;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+  flex-shrink: 0;
 }
 
 .debt-info {
   flex: 1;
 }
 
+.debt-info strong {
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 6px;
+  color: #333;
+}
+
 .debt-info ul {
   list-style: none;
-  padding-left: 15px;
-  margin: 6px 0;
-  color: #444;
-  font-size: 14px;
+  font-size: 0.9rem;
+  max-height: 120px;
+  overflow-y: auto;
+  margin-bottom: 6px;
+  padding-left: 12px;
+}
+
+.debt-info ul li {
+  margin-bottom: 4px;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .debt-info ul li:hover {
-  background-color: #e0f2f1;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+}
+
+.debt-info ul li .remove-history {
+  color: #d9534f;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding-left: 8px;
+  user-select: none;
 }
 
 .debt-info p {
-  margin: 6px 0 0 0;
+  font-size: 0.9rem;
+  color: #555;
 }
 
 .debt button {
-  background: #e53935;
+  background-color: #dc3545; /* rojo */
   border: none;
   color: white;
   padding: 6px 12px;
-  font-size: 14px;
   border-radius: 6px;
   cursor: pointer;
-  align-self: center;
+  font-size: 0.9rem;
+  align-self: start;
   transition: background-color 0.3s ease;
 }
 
 .debt button:hover {
-  background: #b71c1c;
+  background-color: #b02a37;
+}
+
+/* Scroll personalizado */
+#debtList::-webkit-scrollbar,
+.debt-info ul::-webkit-scrollbar {
+  width: 6px;
+}
+
+#debtList::-webkit-scrollbar-thumb,
+.debt-info ul::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.1);
+  border-radius: 3px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .debt img {
+    width: 50px;
+    height: 50px;
+  }
+
+  form#debtForm button[type="submit"] {
+    font-size: 0.9rem;
+  }
 }
