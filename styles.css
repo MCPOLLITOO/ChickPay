@@ -1,14 +1,29 @@
-/* Reset básico */
+/* ========== VARIABLES ========== */
+:root {
+  --primary: #0d6efd;
+  --primary-hover: #084cd3;
+  --danger: #dc3545;
+  --danger-hover: #b02a37;
+  --text-main: #f8f9fa;
+  --text-soft: #ced4da;
+  --background: #000000;
+  --card-bg: #121212;
+  --border: #2c2c2c;
+  --white: #ffffff;
+}
+
+/* ========== RESET ========== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ========== BODY ========== */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f8f9fa;
-  color: #212529;
+  background: var(--background);
+  color: var(--text-main);
   line-height: 1.4;
   min-height: 100vh;
   display: flex;
@@ -16,18 +31,19 @@ body {
   padding: 15px;
 }
 
+/* ========== CONTAINER ========== */
 .container {
-  background: white;
+  background: var(--card-bg);
   max-width: 480px;
   width: 100%;
   border-radius: 10px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
   padding: 20px;
   display: flex;
   flex-direction: column;
 }
 
-/* Header centrado */
+/* ========== HEADER ========== */
 header {
   text-align: center;
   margin-bottom: 20px;
@@ -36,9 +52,10 @@ header {
 header h1 {
   font-size: 1.6rem;
   font-weight: 700;
-  color: #222;
+  color: var(--white);
 }
 
+/* ========== FORMULARIO ========== */
 form#debtForm {
   display: flex;
   flex-direction: column;
@@ -51,27 +68,40 @@ form#debtForm input[type="number"],
 form#debtForm input[type="file"] {
   padding: 10px;
   font-size: 0.9rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border);
   border-radius: 6px;
   width: 100%;
+  background-color: #1c1c1c;
+  color: var(--text-main);
+}
+
+form#debtForm input:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 form#debtForm button[type="submit"] {
-  background-color: #0d6efd;
+  background-color: var(--primary);
   color: white;
   font-weight: 600;
   padding: 10px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
   font-size: 0.9rem;
+  transition: all 0.3s ease;
 }
 
 form#debtForm button[type="submit"]:hover {
-  background-color: #084cd3;
+  background-color: var(--primary-hover);
 }
 
+form#debtForm button[type="submit"]:focus {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+/* ========== LISTA DE DEUDAS ========== */
 #debtList {
   display: flex;
   flex-direction: column;
@@ -81,16 +111,17 @@ form#debtForm button[type="submit"]:hover {
   padding-right: 5px;
 }
 
-/* Cada deuda */
+/* ========== ITEM DEUDA ========== */
 .debt {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 10px 12px;
-  background: #fff;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+  background: #1a1a1a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
 }
 
 .debt img {
@@ -109,7 +140,7 @@ form#debtForm button[type="submit"]:hover {
   font-size: 0.9rem;
   display: block;
   margin-bottom: 4px;
-  color: #333;
+  color: var(--white);
 }
 
 .debt-info ul {
@@ -119,6 +150,7 @@ form#debtForm button[type="submit"]:hover {
   overflow-y: auto;
   margin-bottom: 4px;
   padding-left: 10px;
+  color: var(--text-soft);
 }
 
 .debt-info ul li {
@@ -131,12 +163,12 @@ form#debtForm button[type="submit"]:hover {
 }
 
 .debt-info ul li:hover {
-  background-color: #f0f0f0;
+  background-color: #2a2a2a;
   border-radius: 4px;
 }
 
 .debt-info ul li .remove-history {
-  color: #d9534f;
+  color: var(--danger);
   font-size: 0.7rem;
   cursor: pointer;
   padding-left: 6px;
@@ -145,11 +177,11 @@ form#debtForm button[type="submit"]:hover {
 
 .debt-info p {
   font-size: 0.7rem;
-  color: #555;
+  color: var(--text-soft);
 }
 
 .debt button {
-  background-color: #dc3545;
+  background-color: var(--danger);
   border: none;
   color: white;
   padding: 6px 12px;
@@ -161,10 +193,15 @@ form#debtForm button[type="submit"]:hover {
 }
 
 .debt button:hover {
-  background-color: #b02a37;
+  background-color: var(--danger-hover);
 }
 
-/* Scroll personalizado */
+.debt button:focus {
+  outline: 2px solid white;
+  outline-offset: 2px;
+}
+
+/* ========== SCROLL PERSONALIZADO ========== */
 #debtList::-webkit-scrollbar,
 .debt-info ul::-webkit-scrollbar {
   width: 5px;
@@ -172,11 +209,11 @@ form#debtForm button[type="submit"]:hover {
 
 #debtList::-webkit-scrollbar-thumb,
 .debt-info ul::-webkit-scrollbar-thumb {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 3px;
 }
 
-/* Responsive */
+/* ========== RESPONSIVE ========== */
 @media (max-width: 480px) {
   .container {
     padding: 15px;
@@ -193,5 +230,9 @@ form#debtForm button[type="submit"]:hover {
 
   form#debtForm button[type="submit"] {
     font-size: 0.85rem;
+  }
+
+  .debt-info ul {
+    max-height: 80px;
   }
 }
