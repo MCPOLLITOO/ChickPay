@@ -4,13 +4,66 @@ let debts = JSON.parse(localStorage.getItem('debts')) || [];
 const debtForm = document.getElementById('debtForm');
 const debtNameInput = document.getElementById('debtName');
 const debtImageInput = document.getElementById('debtImage');
+const photoNameDisplay = document.getElementById('photoName');
 const debtList = document.getElementById('debtList');
 const debtDayInput = document.getElementById('debtDay');
+
+const backupInput = document.getElementById('backupInput');
+const downloadBackupBtn = document.getElementById('downloadBackupBtn');
 
 const today = new Date();
 let currentYear = today.getFullYear();
 let currentMonth = today.getMonth(); // 0-11
 
+// Mostrar nombre archivo al seleccionar foto
+debtImageInput.addEventListener('change', () => {
+  if (debtImageInput.files.length > 0) {
+    photoNameDisplay.textContent = debtImageInput.files[0].name;
+  } else {
+    photoNameDisplay.textContent = '';
+  }
+});
+
+// Subir backup
+backupInput.addEventListener('change', () => {
+  if (backupInput.files.length > 0) {
+    const file = backupInput.files[0];
+    const reader = new FileReader();
+    reader.onload = e => {
+      try {
+        const data = JSON.parse(e.target.result);
+        if (Array.isArray(data)) {
+          debts = data;
+          saveAndUpdate();
+          alert('Backup cargado con éxito.');
+        } else {
+          alert('Archivo inválido.');
+        }
+      } catch {
+        alert('Error al leer el archivo.');
+      }
+      backupInput.value = ''; // reset input
+    };
+    reader.readAsText(file);
+  }
+});
+
+// Descargar backup
+downloadBackupBtn.addEventListener('click', () => {
+  const dataStr = JSON.stringify(debts, null, 2);
+  const blob = new Blob([dataStr], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `backup_organizador_pagos_${Date.now()}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+
+// Formulario para agregar deuda
 debtForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const name = debtNameInput.value.trim();
@@ -27,6 +80,7 @@ debtForm.addEventListener('submit', async (e) => {
 
   addDebt(name, day, image);
   debtForm.reset();
+  photoNameDisplay.textContent = '';
 });
 
 function toBase64(file) {
@@ -75,7 +129,7 @@ function updateUI() {
     div.className = 'debt';
 
     const img = document.createElement('img');
-    img.src = debt.image || 'https://via.placeholder.com/60';
+    img.src = debt.image || 'https://via.placeholder.com/60?text=No+Img';
     img.alt = 'Imagen deuda';
 
     const name = document.createElement('div');
@@ -83,7 +137,6 @@ function updateUI() {
     name.innerHTML = `<strong>${debt.name}</strong>`;
 
     const history = document.createElement('ul');
-    history.style.margin = '10px 0';
 
     const keys = Object.keys(debt.payments).sort((a, b) => {
       const [ya, ma] = a.split('-').map(Number);
@@ -91,7 +144,7 @@ function updateUI() {
       return yb * 12 + mb - (ya * 12 + ma);
     });
 
-    keys.forEach((key, index) => {
+    keys.forEach(key => {
       const [year, month] = key.split('-').map(Number);
       const monthName = new Date(year, month).toLocaleString('es-ES', { month: 'long' });
 
@@ -105,12 +158,6 @@ function updateUI() {
 
       const delBtn = document.createElement('button');
       delBtn.textContent = 'Eliminar';
-      delBtn.style.marginLeft = '10px';
-      delBtn.style.fontSize = '12px';
-      delBtn.style.background = 'none';
-      delBtn.style.border = 'none';
-      delBtn.style.color = 'red';
-      delBtn.style.cursor = 'pointer';
       delBtn.title = 'Eliminar este mes y revertir el anterior';
       delBtn.onclick = () => {
         if (confirm(`¿Eliminar ${monthName} ${year} del historial?`)) {
@@ -125,7 +172,7 @@ function updateUI() {
 
     name.appendChild(history);
 
-    // Mostrar próximo pago: último mes no pagado o el más reciente
+    // Próximo pago: último mes no pagado o el más reciente
     const unpaidKeys = keys.filter(k => debt.payments[k] === false);
     const lastKey = unpaidKeys.length > 0 ? unpaidKeys[0] : keys[0];
     const [lastYear, lastMonth] = lastKey.split('-').map(Number);
@@ -134,13 +181,18 @@ function updateUI() {
     const nextPaymentText = document.createElement('p');
     nextPaymentText.textContent = `📅 Próximo pago: ${debt.day} de ${monthText} ${lastYear}`;
     nextPaymentText.style.fontSize = '14px';
-    nextPaymentText.style.color = '#555';
+    nextPaymentText.style.color = '#bbb';
 
     name.appendChild(nextPaymentText);
 
     const removeBtn = document.createElement('button');
     removeBtn.textContent = 'Eliminar';
-    removeBtn.onclick = () => deleteDebt(debt.id);
+    removeBtn.title = 'Eliminar deuda';
+    removeBtn.onclick = () => {
+      if (confirm(`¿Eliminar la deuda "${debt.name}"?`)) {
+        deleteDebt(debt.id);
+      }
+    };
 
     div.append(img, name, removeBtn);
     debtList.appendChild(div);
@@ -170,6 +222,31 @@ function toggleHistoricalPayment(debtId, key) {
     }
     return d;
   });
+
+  saveAndUpdate();
+}
+
+function deleteAndRevert(debtId, key) {
+  debts = debts.map(d => {
+    if (d.id === debtId) {
+      delete d.payments[key];
+
+      // Revert previous month to unpaid if exists
+      const [year, month] = key.split('-').map(Number);
+      let prevMonth = month - 1;
+      let prevYear = year;
+      if (prevMonth < 0) {
+        prevMonth = 11;
+        prevYear -= 1;
+      }
+      const prevKey = `${prevYear}-${prevMonth}`;
+      if (d.payments[prevKey] !== undefined) {
+        d.payments[prevKey] = false;
+      }
+    }
+    return d;
+  });
+
   saveAndUpdate();
 }
 
@@ -178,31 +255,5 @@ function deleteDebt(id) {
   saveAndUpdate();
 }
 
-// ✅ Nuevo comportamiento: eliminar mes y revertir anterior a ❌
-function deleteAndRevert(debtId, keyToDelete) {
-  debts = debts.map(debt => {
-    if (debt.id === debtId) {
-      const keys = Object.keys(debt.payments).sort((a, b) => {
-        const [ya, ma] = a.split('-').map(Number);
-        const [yb, mb] = b.split('-').map(Number);
-        return yb * 12 + mb - (ya * 12 + ma);
-      });
-
-      const index = keys.indexOf(keyToDelete);
-      if (index !== -1) {
-        // Eliminar el mes
-        delete debt.payments[keyToDelete];
-
-        // Revertir el mes anterior (si existe)
-        const previousKey = keys[index + 1];
-        if (previousKey) {
-          debt.payments[previousKey] = false;
-        }
-      }
-    }
-    return debt;
-  });
-  saveAndUpdate();
-}
-
+// Inicializar UI
 updateUI();
