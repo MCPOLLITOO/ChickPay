@@ -4,330 +4,222 @@
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #eee;
+  color: #fff;
 }
 
-/* Fondo y contenedor */
+/* Fondo general */
 body {
   background-color: #121212;
   min-height: 100vh;
-  padding: 20px 10px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
 }
 
-.container {
-  max-width: 480px;
-  width: 100%;
-  background: #1e1e1e;
-  border-radius: 14px;
-  padding: 20px 25px;
-  box-shadow: 0 0 15px #0d6efd88;
-}
-
-/* Header */
+/* Encabezado */
 header {
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 1rem;
 }
 
 header h1 {
-  font-weight: 900;
   font-size: 2rem;
-  color: #0d6efd;
-  letter-spacing: 1.5px;
+  margin-bottom: 0.2rem;
 }
 
-/* Form */
+header p {
+  font-size: 1rem;
+  color: #bbb;
+}
+
+/* Formularios y secciones */
+section {
+  margin-bottom: 2rem;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+/* Formularios */
 form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 30px;
+  gap: 0.8rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+label {
+  font-weight: 600;
+  text-align: center;
 }
 
 input[type="text"],
-input[type="number"] {
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: none;
-  background-color: #2a2a2a;
-  color: #eee;
-  font-size: 1rem;
-  transition: background-color 0.25s ease;
-}
-
-input[type="text"]::placeholder,
-input[type="number"]::placeholder {
-  color: #777;
-}
-
-input[type="text"]:focus,
-input[type="number"]:focus {
-  outline: none;
-  background-color: #393939;
-}
-
-/* Botón principal */
-button[type="submit"] {
-  padding: 12px 0;
-  background-color: #0d6efd;
-  border: none;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 1.15rem;
-  color: white;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgb(13 110 253 / 0.5);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-button[type="submit"]:hover {
-  background-color: #084cd3;
-  box-shadow: 0 6px 15px rgb(13 110 253 / 0.7);
-}
-
-/* Inputs file ocultos */
+input[type="number"],
 input[type="file"] {
-  display: none;
-}
-
-/* Labels para input file */
-.file-input-label {
-  display: inline-block;
-  padding: 10px 18px;
-  background-color: #0d6efd;
-  color: #fff;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  user-select: none;
-  box-shadow: 0 4px 12px rgb(13 110 253 / 0.5);
-  transition: background-color 0.3s ease;
-  font-size: 1rem;
-  text-align: center;
-  max-width: fit-content;
-  margin-bottom: 8px;
-}
-
-.file-input-label:hover {
-  background-color: #084cd3;
-  box-shadow: 0 6px 15px rgb(13 110 253 / 0.7);
-}
-
-/* Mostrar nombre archivo */
-.file-name-display {
-  margin-left: 10px;
-  color: #bbb;
-  font-size: 0.9rem;
-  font-style: italic;
-  user-select: none;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 220px;
-  vertical-align: middle;
-}
-
-/* Backup buttons container */
-.backup-buttons {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 30px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.backup-buttons button {
-  flex: 1;
-  min-width: 130px;
-  padding: 12px 14px;
-  background-color: #0d6efd;
-  color: white;
-  font-weight: 700;
+  padding: 0.5rem;
+  border-radius: 6px;
   border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 4px 12px rgb(13 110 253 / 0.5);
   font-size: 1rem;
+  background-color: #222;
+  color: #fff;
+  text-align: center;
 }
 
-.backup-buttons button:hover {
-  background-color: #084cd3;
-  box-shadow: 0 6px 15px rgb(13 110 253 / 0.7);
+/* Botones generales */
+.btn-primary,
+.btn-download {
+  background-color: #000; /* Negro por defecto */
+  color: #fff;            /* Letras blancas */
+  border: 2px solid #555;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-/* Lista de deudas */
+.btn-primary:hover,
+.btn-download:hover {
+  background-color: #4caf50; /* Verde al pasar el cursor */
+  color: #000;               /* Letras negras */
+  border-color: #4caf50;
+}
+
+/* Historial de deudas */
 #debtList {
+  max-width: 600px;
+  margin: 0 auto;
   max-height: 400px;
   overflow-y: auto;
-  padding-right: 6px;
+  padding-right: 10px;
+  border: 1px solid #333;
+  border-radius: 6px;
 }
 
-/* Scrollbar minimalista y moderna para webkit */
+/* Scrollbar moderno para #debtList */
 #debtList::-webkit-scrollbar {
-  width: 7px;
+  width: 8px;
 }
 
 #debtList::-webkit-scrollbar-track {
-  background: #1e1e1e;
-  border-radius: 10px;
+  background: #222;
+  border-radius: 6px;
 }
 
 #debtList::-webkit-scrollbar-thumb {
-  background-color: #0d6efdcc;
-  border-radius: 10px;
-  border: 2px solid #1e1e1e;
+  background: #4caf50;
+  border-radius: 6px;
 }
 
-/* Firefox scrollbar */
-#debtList {
-  scrollbar-width: thin;
-  scrollbar-color: #0d6efdcc #1e1e1e;
+#debtList::-webkit-scrollbar-thumb:hover {
+  background: #388e3c;
 }
 
-/* Cada deuda */
+/* Deuda individual */
 .debt {
-  background-color: #2a2a2a;
-  border-radius: 12px;
-  padding: 12px 16px;
-  margin-bottom: 18px;
+  background-color: #222;
+  margin: 0.6rem 0;
+  padding: 1rem;
+  border-radius: 6px;
   display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  box-shadow: 0 0 12px #0d6efd44;
-  transition: background-color 0.3s ease;
+  align-items: center;
+  gap: 1rem;
 }
 
-.debt:hover {
-  background-color: #393939;
-}
-
-/* Imagen deuda */
 .debt img {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
-  flex-shrink: 0;
-  box-shadow: 0 0 6px #0d6efdaa;
+  border-radius: 6px;
+  border: 2px solid #4caf50;
 }
 
-/* Info deuda */
 .debt-info {
-  flex: 1;
+  flex-grow: 1;
   color: #eee;
-  font-size: 1rem;
 }
 
-/* Historial */
+/* Historial de pagos por deuda */
 .debt-info ul {
-  margin: 10px 0;
-  padding-left: 18px;
   list-style: none;
-  max-height: 120px;
+  margin-top: 0.5rem;
+  max-height: 100px;
   overflow-y: auto;
+  padding-right: 8px;
 }
 
-/* Historial scrollbar igual */
+.debt-info ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+/* Botones dentro de lista (eliminar pagos - se mantienen rojos) */
+.debt-info ul li button {
+  background-color: #b71c1c;
+  border: none;
+  color: white;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.debt-info ul li button:hover {
+  background-color: #d32f2f;
+}
+
+/* Botón eliminar deuda (se mantiene rojo) */
+.debt > button {
+  background-color: #b71c1c;
+  border: none;
+  color: white;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  align-self: flex-start;
+}
+
+.debt > button:hover {
+  background-color: #d32f2f;
+}
+
+/* Scrollbar para historial de pagos por deuda */
 .debt-info ul::-webkit-scrollbar {
   width: 6px;
 }
 
 .debt-info ul::-webkit-scrollbar-track {
-  background: #2a2a2a;
-  border-radius: 10px;
+  background: #222;
+  border-radius: 6px;
 }
 
 .debt-info ul::-webkit-scrollbar-thumb {
-  background-color: #0d6efdcc;
-  border-radius: 10px;
-  border: 1.5px solid #2a2a2a;
-}
-
-.debt-info ul {
-  scrollbar-width: thin;
-  scrollbar-color: #0d6efdcc #2a2a2a;
-}
-
-/* Estado pago/no pago */
-.debt-info li {
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  cursor: default;
-  color: #ccc;
-}
-
-.debt-info li span {
-  cursor: pointer;
-  flex-grow: 1;
-}
-
-.debt-info li span:hover {
-  color: #0d6efd;
-  text-decoration: underline;
-}
-
-/* Botón eliminar en historial */
-.debt-info li button {
-  background: none;
-  border: none;
-  color: #ff5c5c;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 0.85rem;
-  padding: 0 6px;
+  background: #4caf50;
   border-radius: 6px;
-  transition: background-color 0.2s ease;
 }
 
-.debt-info li button:hover {
-  background-color: #ff5c5c22;
+.debt-info ul::-webkit-scrollbar-thumb:hover {
+  background: #388e3c;
 }
 
-/* Próximo pago */
-.debt-info p {
+/* Texto centrado */
+body, form, label, h1, h2, p, button {
+  text-align: center;
+}
+
+/* Footer */
+footer {
+  text-align: center;
   font-size: 0.9rem;
-  color: #999;
-  margin-top: 6px;
-}
-
-/* Botón eliminar deuda principal */
-.debt > button {
-  background-color: transparent;
-  border: none;
-  color: #ff5c5c;
-  font-weight: 700;
-  cursor: pointer;
-  font-size: 1rem;
-  padding: 4px 10px;
-  align-self: flex-start;
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
-  user-select: none;
-}
-
-.debt > button:hover {
-  background-color: #ff5c5c22;
-}
-
-/* Responsive */
-@media (max-width: 520px) {
-  .debt {
-    flex-direction: column;
-    align-items: center;
-  }
-  .debt img {
-    margin-bottom: 8px;
-  }
-  .debt > button {
-    align-self: center;
-  }
-  .backup-buttons {
-    flex-direction: column;
-  }
+  color: #777;
+  margin-top: 2rem;
 }
