@@ -9,6 +9,7 @@ const debtList = document.getElementById('debtList');
 const debtDayInput = document.getElementById('debtDay');
 
 const backupInput = document.getElementById('backupInput');
+const backupFileNameDisplay = document.getElementById('backupFileName');
 const downloadBackupBtn = document.getElementById('downloadBackupBtn');
 
 const today = new Date();
@@ -24,10 +25,11 @@ debtImageInput.addEventListener('change', () => {
   }
 });
 
-// Subir backup
+// Mostrar nombre archivo al seleccionar backup
 backupInput.addEventListener('change', () => {
   if (backupInput.files.length > 0) {
     const file = backupInput.files[0];
+    backupFileNameDisplay.textContent = `Archivo: ${file.name}`;
     const reader = new FileReader();
     reader.onload = e => {
       try {
@@ -43,12 +45,15 @@ backupInput.addEventListener('change', () => {
         alert('Error al leer el archivo.');
       }
       backupInput.value = ''; // reset input
+      backupFileNameDisplay.textContent = '';
     };
     reader.readAsText(file);
+  } else {
+    backupFileNameDisplay.textContent = '';
   }
 });
 
-// Descargar backup
+// Descargar backup con botón verde y texto negro
 downloadBackupBtn.addEventListener('click', () => {
   const dataStr = JSON.stringify(debts, null, 2);
   const blob = new Blob([dataStr], { type: "application/json" });
@@ -134,9 +139,13 @@ function updateUI() {
 
     const name = document.createElement('div');
     name.className = 'debt-info';
+    name.style.textAlign = 'center';
+
     name.innerHTML = `<strong>${debt.name}</strong>`;
 
     const history = document.createElement('ul');
+    history.style.listStyle = 'none';
+    history.style.padding = '0';
 
     const keys = Object.keys(debt.payments).sort((a, b) => {
       const [ya, ma] = a.split('-').map(Number);
@@ -149,16 +158,28 @@ function updateUI() {
       const monthName = new Date(year, month).toLocaleString('es-ES', { month: 'long' });
 
       const li = document.createElement('li');
+      li.style.display = 'flex';
+      li.style.justifyContent = 'space-between';
+      li.style.alignItems = 'center';
+      li.style.margin = '4px 0';
+
       const paid = debt.payments[key];
 
       const status = document.createElement('span');
       status.textContent = `${monthName} ${year}: ${paid ? '✅ Pagado' : '❌ Sin pagar'}`;
       status.style.cursor = 'pointer';
+      status.style.flexGrow = '1';
+      status.style.textAlign = 'center';
       status.onclick = () => toggleHistoricalPayment(debt.id, key);
 
       const delBtn = document.createElement('button');
       delBtn.textContent = 'Eliminar';
       delBtn.title = 'Eliminar este mes y revertir el anterior';
+      delBtn.style.color = '#f44336'; // rojo para eliminar
+      delBtn.style.background = 'transparent';
+      delBtn.style.border = 'none';
+      delBtn.style.cursor = 'pointer';
+      delBtn.style.fontWeight = 'bold';
       delBtn.onclick = () => {
         if (confirm(`¿Eliminar ${monthName} ${year} del historial?`)) {
           deleteAndRevert(debt.id, key);
@@ -182,17 +203,27 @@ function updateUI() {
     nextPaymentText.textContent = `📅 Próximo pago: ${debt.day} de ${monthText} ${lastYear}`;
     nextPaymentText.style.fontSize = '14px';
     nextPaymentText.style.color = '#bbb';
+    nextPaymentText.style.textAlign = 'center';
 
     name.appendChild(nextPaymentText);
 
     const removeBtn = document.createElement('button');
     removeBtn.textContent = 'Eliminar';
     removeBtn.title = 'Eliminar deuda';
+    removeBtn.style.color = '#f44336'; // rojo eliminar
+    removeBtn.style.background = 'transparent';
+    removeBtn.style.border = 'none';
+    removeBtn.style.cursor = 'pointer';
+    removeBtn.style.fontWeight = 'bold';
+    removeBtn.style.display = 'block';
+    removeBtn.style.margin = '0 auto 10px auto';
     removeBtn.onclick = () => {
       if (confirm(`¿Eliminar la deuda "${debt.name}"?`)) {
         deleteDebt(debt.id);
       }
     };
+
+    div.style.textAlign = 'center';
 
     div.append(img, name, removeBtn);
     debtList.appendChild(div);
