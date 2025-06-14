@@ -3,37 +3,64 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>POLLITOO 🐣</title>
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- Manifest y Favicon -->
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icon-192.png" type="image/png" />
   <meta name="theme-color" content="#121212" />
+  <title>Organizador de Pagos - ChickPay</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(reg => console.log('Service Worker registrado', reg))
+          .catch(err => console.error('Error al registrar SW:', err));
+      });
+    }
+  </script>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Organizador de pagos</h1>
-       <h1>POLLITOO 🐣</h1>
-    </header>
+  <header>
+    <h1>Organizador de Pagos</h1>
+    <p>Administra tus pagos mensuales con facilidad</p>
+    <p>ChickPay🐥</p>
+  </header>
 
-    <form id="debtForm">
-      <input type="text" id="debtName" placeholder="Nombre de la deuda" required />
-      <input type="number" id="debtDay" placeholder="Día de pago" min="1" max="31" required />
+  <main>
+    <section id="formSection">
+      <h2>Agregar deuda</h2>
+      <form id="debtForm">
+        <label for="debtName">Nombre del pago:</label>
+        <input type="text" id="debtName" required placeholder="Ej: Luz, Renta..." />
 
-      <label for="debtImage" class="file-input-label">Foto</label>
-      <input type="file" id="debtImage" accept="image/*" />
-      <span id="photoName" class="file-name-display"></span>
+        <label for="debtDay">Día de pago (1-31):</label>
+        <input type="number" id="debtDay" required min="1" max="31" />
 
-      <button type="submit">Agregar Deuda</button>
-    </form>
+        <label for="debtImage" class="file-label">Foto (opcional):</label>
+        <input type="file" id="debtImage" accept="image/*" />
+        
+        <button type="submit" class="btn-primary">Agregar deuda</button>
+      </form>
+    </section>
 
-    <div class="backup-buttons">
-  <button onclick="descargarBackup()">⬇️ Descargar Backup</button>
-  <button onclick="subirBackup()">⬆️ Subir Backup</button>
-</div>
+    <section id="backupSection">
+      <h2>Backup y restauración</h2>
 
+      <input type="file" id="backupInput" accept="application/json" style="display:none" />
+      <button id="openBackupInputBtn" class="btn-primary">Seleccionar archivo de backup</button>
+
+      <button id="downloadBackupBtn" class="btn-download">Descargar backup</button>
+
+      <div id="backupFileName" class="file-name"></div>
+    </section>
+
+    <section id="listSection">
+      <h2>Historial y deudas</h2>
+      <div id="debtList"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 ChickPay - Organizador de Pagos</p>
+  </footer>
 
   <script src="app.js"></script>
 </body>
